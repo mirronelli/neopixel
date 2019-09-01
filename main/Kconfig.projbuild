@@ -1,0 +1,60 @@
+# put here your custom config value
+menu "Main Project Configuration"
+config WIFI_SSID
+    string "WiFi SSID"
+    help
+	SSID (network name) for the example to connect to.
+
+config WIFI_PASSWORD
+    string "WiFi Password"
+    help
+	WiFi password (WPA or WPA2) for the example to use.
+
+config MQTT_BROKER_ADDRESS
+    string "Mqtt Broker Address"
+    help
+	Mqtt broker ip or dns name including 'Mqtt://' schema.
+
+config MQTT_DATA_TOPIC
+    string "Data topic name"
+    help
+	Mqtt topic the data values are published on.
+
+config MQTT_WATERING_TOPIC
+    string 
+	prompt "Watering topic name"
+    default "Watering"
+	help
+	Mqtt topic the watering messages are published on.
+
+config MQTT_COMMAND_TOPIC
+    string "Command topic name"
+    help
+	Mqtt topic the commands are listened on.
+
+config TIMEZONE
+    string "Timezone"
+    help
+	Time outputs relate to this timezone.
+
+config WATERING_UPPER_BOUND
+	int
+	default 1650 
+	prompt "Upper humidity bound"
+	help
+	The upper humidity bound for starting watering.
+
+config WATERING_DURATION
+	int 
+	default 60
+	prompt "Watering duration in seconds"
+	help
+	The duration for which the pump will run.
+
+config METERING_INTERVAL
+	int 
+	default 30
+	prompt "Loop interval in seconds"
+	help
+	"The delay metween measures."
+endmenu
