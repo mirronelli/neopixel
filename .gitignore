@@ -1,6 +1,4 @@
 build/
 sdkconfig*
-sdkconfig.old
-.vscode/BROWSE.VC*
-.vscode/browse.vc*
-.vscode/ipch/**
+.vscode/BROWSE*
+.vscode/browse*
