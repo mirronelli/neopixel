@@ -4,6 +4,7 @@ set(COMPONENT_PRIV_REQUIRES )
 
 set (COMPONENT_SRCS
   "main.cpp"
+  "neopixel.cpp"
 )
 
 set(COMPONENT_ADD_INCLUDEDIRS "")

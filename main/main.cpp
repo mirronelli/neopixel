@@ -20,6 +20,7 @@
 #include "mI2c.h"
 
 #include "main.h"
+#include "neopixel.h"
 
 //standard libs
 #include <memory>
@@ -60,10 +61,53 @@ extern "C"
 	void app_main(void);
 }
 
+void SnakePart(Pixels *pixels, int firstPixel, int effectPixelCount, int dimmedCount)
+{
+	int halfCount  = effectPixelCount / 2;
+	int lastPixel = firstPixel + effectPixelCount - 1;
+	int luminance;
+
+	for (int i = 0; i < halfCount; i++)
+	{
+		if (i < dimmedCount)
+			luminance = 1 << i;
+		else
+			luminance = 256;
+			
+		pixels->SetPixel(firstPixel + i, luminance - 1, 0, 0, 0);
+		pixels->SetPixel(lastPixel - i, luminance - 1, 0, 0, 0);
+	}
+	
+	pixels->Write();
+}
+
+void Snake(Pixels *pixels, int pixelCount, int effectPixelCount, int dimmedCount)
+{
+	for (int firstPixel = 0; firstPixel < pixelCount - effectPixelCount; firstPixel++)
+	{
+		SnakePart(pixels, firstPixel, effectPixelCount, dimmedCount);
+	}
+
+	for (int firstPixel = pixelCount - effectPixelCount; firstPixel >=0; firstPixel--)
+	{
+		SnakePart(pixels, firstPixel, effectPixelCount, dimmedCount);
+	}
+}
+
 void app_main()
 {
-	Main m = Main();
-	m.app_main();
+	//Main m = Main();
+	//m.app_main();
+
+	int pixelCount = 150;
+
+	//NeoPixel neoPixel();
+	Pixels* pixels = new Pixels(GPIO_NUM_15, pixelCount, RMT_CHANNEL_0);
+
+	while(true)
+	{
+		Snake(pixels, pixelCount, 18, 8);
+	}
 }
 
 void Main::app_main(void)
