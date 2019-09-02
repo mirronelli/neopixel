@@ -68,7 +68,9 @@
 			"command": "idf.py",
 			"args": [
 				"-p",
-				"COM4",
+				"/dev/ttyS4",
+				"-b", 
+				"230400",
 				"flash"
 			],
 			"presentation": {
@@ -85,7 +87,7 @@
 			"command": "idf.py",
 			"args": [
 				"-p",
-				"COM4",
+				"/dev/ttyS4",
 				"-b", 
 				"921600",
 				"flash",
