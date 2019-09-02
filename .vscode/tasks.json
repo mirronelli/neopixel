@@ -1,0 +1,120 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build",
+			"type": "process",
+			"presentation": {
+				"reveal": "always",
+				"echo": true,
+				"clear": true,
+				"focus": true
+			},
+			"problemMatcher": {
+				"owner": "cpp",
+				"fileLocation": "relative",
+				"pattern": {
+					"regexp": "^\\.\\./(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+					"file": 1,
+					"line": 2,
+					"column": 3,
+					"severity": 4,
+					"message": 5
+				}
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},"linux": {
+				"command": "idf.py",
+				"args": ["build"]
+			}
+		},
+		{
+			"label": "Clean",
+			"command": "idf.py",
+			"type": "shell",
+			"args": [
+				"clean"
+			],
+			"presentation": {
+				"reveal": "always",
+				"echo": true,
+				"clear": true,
+				"focus": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Full Clean",
+			"command": "idf.py",
+			"type": "shell",
+			"args": [
+				"fullclean"
+			],
+			"presentation": {
+				"reveal": "always",
+				"echo": true,
+				"clear": true,
+				"focus": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Flash",
+			"type": "shell",
+			"command": "idf.py",
+			"args": [
+				"-p",
+				"COM4",
+				"flash"
+			],
+			"presentation": {
+				"reveal": "always",
+				"echo": true,
+				"clear": true,
+				"focus": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Flash and monitor",
+			"type": "shell",
+			"command": "idf.py",
+			"args": [
+				"-p",
+				"COM4",
+				"-b", 
+				"921600",
+				"flash",
+				"monitor"
+			],
+			"presentation": {
+				"reveal": "always",
+				"echo": true,
+				"clear": true,
+				"focus": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Config Menu",
+			"type": "shell",
+			"linux": {
+				"command": "idf.py",
+				"args": [
+					"menuconfig"
+				]
+			},
+			"presentation": {
+				"reveal": "always",
+				"echo": true,
+				"clear": true,
+				"focus": true
+			},
+			"problemMatcher": []
+		}
+	]
+}

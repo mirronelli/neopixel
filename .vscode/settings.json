@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"gpio.h": "c",
+		"sdkconfig.h": "c",
+		"freertos.h": "c",
+		"esp_system.h": "c",
+		"freertosconfig.h": "c",
+		"string": "cpp"
+	}	
+}
