@@ -7,20 +7,12 @@ set(EXTRA_COMPONENT_DIRS "../components")
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 
 set(COMPONENTS
+	"main"
 	"mWifiClient"
 	"mMqttClient"
-	"mTime"
-	"mI2c"
 	"driver"
-	"esp_event"
-	"esp_wifi"
 	"esptool_py"
-	"freertos"
 	"log"
-	"main"
-	"mqtt"
-	"nvs_flash"
-	"tcpip_adapter"
 )
 
-project(MqttMeasure)
+project(neopixel)
