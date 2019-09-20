@@ -6,13 +6,44 @@
 
 void Police::Run()
 {
-	int lastPixel = firstPixel + halfPixels;
+	if (firstRun)
+	{
+		FirstRun();
+	} 
+	else
+	{
+		int lastPixel = firstPixel + halfPixels;
 
+		Pixel pixel = pixels->GetPixel(firstPixel);
+		printf("%d\t%d\t%d\n", firstPixel, lastPixel, pixel.red);
+
+		if (pixel.red == 0)
+		{
+			pixels->SetPixel(firstPixel, 255, 0, 0, 0);
+			pixels->SetPixel(lastPixel, 0, 0, 255, 0);
+		}
+		else 
+		{
+			pixels->SetPixel(lastPixel, 255, 0, 0, 0);
+			pixels->SetPixel(firstPixel, 0, 0, 255, 0);
+		}
+
+		firstPixel++;
+		if (firstPixel >= halfPixels)
+		{
+			firstPixel = 0;
+		}
+	}
+	WriteAndWait();
+}
+
+void Police::FirstRun()
+{
 	for (int i=0; i < pixelCount; i++)
 	{
-		int red, blue;
+		uint8_t red, blue;
 
-		if ((i >= firstPixel && i < lastPixel) || (i < firstPixel - halfPixels))
+		if (i < halfPixels)
 		{
 			red = 255; blue = 0;
 		} else {
@@ -22,11 +53,5 @@ void Police::Run()
 		pixels->SetPixel(i, red, 0, blue, 0);
 	}
 
-	firstPixel ++;
-	if (firstPixel > pixelCount)
-	{
-		firstPixel = 0;
-	}
-
-	WriteAndWait();
+	firstRun = false;
 }

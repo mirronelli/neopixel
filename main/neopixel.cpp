@@ -4,6 +4,7 @@
 #include "esp_log.h"
 #include "malloc.h"
 #include "freertos/task.h"
+#include <stdexcept>
 
 Pixels::Pixels(gpio_num_t pin, int count, StripType stripType, rmt_channel_t channel)
 {
@@ -95,6 +96,11 @@ void Pixels::SetPixel(int index, Pixel pixel)
 
 void Pixels::SetPixel(int index, uint8_t red, uint8_t green, uint8_t blue, uint8_t white)
 {
+	if (index > PixelCount)
+	{
+		throw std::out_of_range("index out of range");
+	}
+	
 	int firstByteIndex = index * 4;
 
 	this->pixelData[firstByteIndex + 0] = white;
