@@ -11,6 +11,8 @@
 #include "main.h"
 #include "neopixel.h"
 #include "effects/snake.h"
+#include "effects/stars.h"
+#include "effects/police.h"
 
 using namespace std;
 
@@ -40,12 +42,17 @@ void Main::app_main(void)
 	// mqttCommandReturnTopic = mqttCommandTopic + "Ret";
 	// mqttClient->Subscribe(mqttCommandTopic, 1, Main::HandleMqttMessage, this);
 
-	int pixelCount = 300;
+	int pixelCount = 150;
 	Pixels* pixels = new Pixels(GPIO_NUM_13, pixelCount, Pixels::StripType::ws6812, RMT_CHANNEL_0);
 
-	while(true)
+	Stars stars(pixels, pixelCount, 30, 99'000, 10, 50, 255, 63, 0);
+	Snake snake(pixels, pixelCount, 0, 18, 8);
+	Police police(pixels, pixelCount, 1000);
+	while (true)
 	{
-		Snake::Run(pixels, pixelCount, 18, 8);
+		//snake.Run();
+		// stars.Run();
+		police.Run();
 	}
 }
 

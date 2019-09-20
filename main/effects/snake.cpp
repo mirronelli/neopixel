@@ -1,8 +1,28 @@
+#include "freertos/FreeRTOS.h"
+#include "freertos/FreeRTOSConfig.h"
+#include "freertos/task.h"
 #include "snake.h"
+#include "../neopixel.h"
+
+void Snake::Run()
+{
+	HalfSnake(pixels, firstPixel, effectPixelCount, dimmedCount);
+
+	if (firstPixel >= pixelCount - effectPixelCount)
+	{
+		step = -1;
+	}
+	else if (firstPixel <= 0)
+	{
+		step = 1;
+	}
+
+	firstPixel += step;
+}
 
 void Snake::HalfSnake(Pixels *pixels, int firstPixel, int effectPixelCount, int dimmedCount)
 {
-	int halfCount  = effectPixelCount / 2;
+	int halfCount = effectPixelCount / 2;
 	int lastPixel = firstPixel + effectPixelCount - 1;
 	int luminance;
 
@@ -12,23 +32,10 @@ void Snake::HalfSnake(Pixels *pixels, int firstPixel, int effectPixelCount, int 
 			luminance = 1 << i;
 		else
 			luminance = 256;
-			
+
 		pixels->SetPixel(firstPixel + i, luminance - 1, 0, 0, 0);
 		pixels->SetPixel(lastPixel - i, luminance - 1, 0, 0, 0);
 	}
-	
-	pixels->Write();
-}
 
-void Snake::Run(Pixels *pixels, int pixelCount, int effectPixelCount, int dimmedCount)
-{
-	for (int firstPixel = 0; firstPixel < pixelCount - effectPixelCount; firstPixel++)
-	{
-		HalfSnake(pixels, firstPixel, effectPixelCount, dimmedCount);
-	}
-
-	for (int firstPixel = pixelCount - effectPixelCount; firstPixel >=0; firstPixel--)
-	{
-		HalfSnake(pixels, firstPixel, effectPixelCount, dimmedCount);
-	}
+	WriteAndWait();
 }

@@ -6,6 +6,9 @@ set (COMPONENT_SRCS
   "main.cpp"
   "neopixel.cpp"
   "effects/snake.cpp"
+  "effects/stars.cpp"
+  "effects/effect.cpp"
+  "effects/police.cpp"
 )
 
 set(COMPONENT_ADD_INCLUDEDIRS "")

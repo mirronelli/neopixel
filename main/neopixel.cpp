@@ -2,12 +2,15 @@
 #include "driver/rmt.h"
 #include "esp_err.h"
 #include "esp_log.h"
+#include "malloc.h"
+#include "freertos/task.h"
 
 Pixels::Pixels(gpio_num_t pin, int count, StripType stripType, rmt_channel_t channel)
 {
 	this->PixelCount = count;
 	this->bitCount = count * 32;
 	this->rmtItems = new rmt_item32_t[bitCount];
+	this->pixelData = new uint8_t[count * 4];
 	this->channel = channel;
 
 	// ws6812 and ws2812 timings
@@ -18,7 +21,7 @@ Pixels::Pixels(gpio_num_t pin, int count, StripType stripType, rmt_channel_t cha
 	//   false:72 | true:48
 	if (stripType == StripType::ws6812)
 	{
-		oneBitHightTime = 40;
+		oneBitHighTime = 40;
 		oneBitLowTime = 40;
 		zeroBitHighTime = 15;
 		zeroBitLowTime = 65;
@@ -38,7 +41,7 @@ Pixels::Pixels(gpio_num_t pin, int count, StripType stripType, rmt_channel_t cha
 	ESP_ERROR_CHECK(rmt_config(&config));
 	ESP_ERROR_CHECK(rmt_driver_install(config.channel, 0, 0));
 
-	for (int i = 0; i < PixelCount*32; i++)
+	for (int i = 0; i < PixelCount; i++)
 	{
 		this->SetupPixel(i);
 	}	
@@ -53,23 +56,62 @@ void Pixels::Write()
 
 void Pixels::SetupPixel(int index)
 {
+	int firstByteIndex = index * 4;
+
+	this->pixelData[firstByteIndex + 0] = 0;
+	this->pixelData[firstByteIndex + 1] = 0;
+	this->pixelData[firstByteIndex + 2] = 0;
+	this->pixelData[firstByteIndex + 3] = 0;
+	for (int i = index * 4 * 8; i < (index + 1) * 4 * 8; i++)
+	{
+		SetupPixelBit(i);
+	}
+}
+
+void Pixels::SetupPixelBit(int index)
+{
 	this->rmtItems[index].level0 = 1;
 	this->rmtItems[index].level1 = 0;
 	this->rmtItems[index].duration0 = zeroBitHighTime;
 	this->rmtItems[index].duration1 = zeroBitLowTime;
 }
 
-void Pixels::SetPixel(int index, char red, char green, char blue, char white)
+Pixel Pixels::GetPixel(int index)
 {
+	Pixel pixel;
+	int firstByteIndex = index * 4;
+
+	pixel.white 	= this->pixelData[firstByteIndex + 0];
+	pixel.blue 		= this->pixelData[firstByteIndex + 1];
+	pixel.red 		= this->pixelData[firstByteIndex + 2];
+	pixel.green 	= this->pixelData[firstByteIndex + 3];
+	return pixel;
+}
+
+void Pixels::SetPixel(int index, Pixel pixel)
+{
+	SetPixel(index, pixel.red, pixel.green, pixel.blue, pixel.white);
+}
+
+void Pixels::SetPixel(int index, uint8_t red, uint8_t green, uint8_t blue, uint8_t white)
+{
+	int firstByteIndex = index * 4;
+
+	this->pixelData[firstByteIndex + 0] = white;
+	this->pixelData[firstByteIndex + 1] = blue;
+	this->pixelData[firstByteIndex + 2] = red;
+	this->pixelData[firstByteIndex + 3] = green;
+
 	int startBit = index * 32;
-	uint32_t pixelData = (green << 24) | (red << 16) | (blue << 8) | white;
+	//uint32_t widePixelData = (green << 24) | (red << 16) | (blue << 8) | white;
+	uint32_t* widePixelData = (uint32_t*)(pixelData + firstByteIndex);
 	uint32_t mask = 1 << 31;  
 
 	for (int i = startBit; i < startBit + 32; i++)
 	{
-		if (pixelData & mask)
+		if ((*widePixelData)&mask)
 		{
-			this->rmtItems[i].duration0 = oneBitHightTime;
+			this->rmtItems[i].duration0 = oneBitHighTime;
 			this->rmtItems[i].duration1 = oneBitLowTime;
 		}
 		else
