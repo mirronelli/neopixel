@@ -9,6 +9,7 @@ set (COMPONENT_SRCS
   "effects/stars.cpp"
   "effects/effect.cpp"
   "effects/police.cpp"
+  "effects/rainbow.cpp"
 )
 
 set(COMPONENT_ADD_INCLUDEDIRS "")

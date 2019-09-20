@@ -12,8 +12,9 @@ class Police : Effect
 			halfPixels(pixelCount/2){};
 
 		void Run();
-		void FirstRun();
+		
 	private:
+		void FirstRun();
 		int firstPixel = 0;
 		int halfPixels;
 		bool firstRun = true;

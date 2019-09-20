@@ -13,6 +13,7 @@
 #include "effects/snake.h"
 #include "effects/stars.h"
 #include "effects/police.h"
+#include "effects/rainbow.h"
 
 using namespace std;
 
@@ -45,14 +46,16 @@ void Main::app_main(void)
 	int pixelCount = 150;
 	Pixels* pixels = new Pixels(GPIO_NUM_13, pixelCount, Pixels::StripType::ws6812, RMT_CHANNEL_0);
 
-	Stars  stars	(pixels, pixelCount, 50, 99'000, 10, 50, 255, 63, 0);
-	Snake  snake	(pixels, pixelCount, 50, 18, 8);
-	Police police	(pixels, pixelCount, 5);
+	Stars	stars	(pixels, pixelCount, 50, 99'000, 10, 50, 255, 63, 0);
+	Snake	snake	(pixels, pixelCount, 50, 18, 8);
+	Police	police	(pixels, pixelCount, 5);
+	Rainbow	rainbow	(pixels, pixelCount, 30);
 	while (true)
 	{
 		//snake.Run();
 		//stars.Run();
-		police.Run();
+		// police.Run();
+		rainbow.Run();
 	}
 }
 
