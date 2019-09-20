@@ -1,7 +1,4 @@
 #include "stars.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/FreeRTOSConfig.h"
-#include "freertos/task.h"
 #include "math.h"
 
 void Stars::Run()
@@ -10,7 +7,6 @@ void Stars::Run()
 	double greenFadeCoefficient = pow(green, 1.0 / fadeSpeed);
 	double blueFadeCoefficient = pow(blue, 1.0 / fadeSpeed);
 	double whiteFadeCoefficient = pow(white, 1.0 / fadeSpeed);
-
 
 	for (int i = 0; i < pixelCount; i++)
 	{

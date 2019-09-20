@@ -6,15 +6,15 @@
 
 class Police : Effect
 {
-	private:
-		int firstPixel = 0;
-		int halfPixels;
-
 	public:
 		Police(Pixels *pixels, int pixelCount, int refreshSpeed):
 			Effect(pixels, pixelCount, refreshSpeed),
 			halfPixels(pixelCount/2){};
 
 		void Run();
+	private:
+		int firstPixel = 0;
+		int halfPixels;
+
 };
 #endif

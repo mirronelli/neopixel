@@ -45,13 +45,13 @@ void Main::app_main(void)
 	int pixelCount = 150;
 	Pixels* pixels = new Pixels(GPIO_NUM_13, pixelCount, Pixels::StripType::ws6812, RMT_CHANNEL_0);
 
-	Stars stars(pixels, pixelCount, 30, 99'000, 10, 50, 255, 63, 0);
-	Snake snake(pixels, pixelCount, 0, 18, 8);
-	Police police(pixels, pixelCount, 1000);
+	Stars  stars (pixels, pixelCount, 50, 99'000, 10, 50, 255, 63, 0);
+	Snake  snake (pixels, pixelCount, 50, 18, 8);
+	Police police(pixels, pixelCount, 5);
 	while (true)
 	{
 		//snake.Run();
-		// stars.Run();
+		//stars.Run();
 		police.Run();
 	}
 }

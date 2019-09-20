@@ -21,10 +21,10 @@ Pixels::Pixels(gpio_num_t pin, int count, StripType stripType, rmt_channel_t cha
 	//   false:72 | true:48
 	if (stripType == StripType::ws6812)
 	{
-		oneBitHighTime = 40;
-		oneBitLowTime = 40;
-		zeroBitHighTime = 15;
-		zeroBitLowTime = 65;
+		oneBitHighTime = 48;
+		oneBitLowTime = 48;
+		zeroBitHighTime = 24;
+		zeroBitLowTime = 72;
 	}
 
 	rmt_config_t config;
