@@ -9,9 +9,7 @@ void Police::Run()
 	else
 	{
 		int lastPixel = firstPixel + halfPixels;
-
 		Pixel pixel = pixels->GetPixel(firstPixel);
-		printf("%d\t%d\t%d\n", firstPixel, lastPixel, pixel.red);
 
 		if (pixel.red == 0)
 		{
@@ -35,7 +33,7 @@ void Police::Run()
 
 void Police::FirstRun()
 {
-	for (int i=0; i < pixelCount; i++)
+	for (int i = 0; i < pixelCount; i++)
 	{
 		uint8_t red, blue;
 

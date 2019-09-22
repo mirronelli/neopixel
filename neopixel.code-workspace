@@ -55,6 +55,8 @@
 			"map": "cpp",
 			"memory_resource": "cpp",
 			"iostream": "cpp"
-		}
+		},
+		"editor.fontLigatures": true,
+		"editor.fontFamily": "'Cascadia Code', Consolas, 'Courier New', monospace"
 	}
 }

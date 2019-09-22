@@ -29,8 +29,9 @@ void Rainbow::FirstRun()
 	{
 		int phaseIndex = i / phaseLength;
 		int phaseStep = i % phaseLength;
-		uint8_t ascendingValue = pow(phaseStepCoefficient, phaseStep);
-		uint8_t descendingValue = pow(phaseStepCoefficient, phaseLength - phaseStep);
+		double phaseStepSize = 255.0 / phaseLength;
+		uint8_t ascendingValue = phaseStep * phaseStepSize;
+		uint8_t descendingValue = (phaseLength - phaseStep) * phaseStepSize;
 
 		switch (phaseIndex)
 		{

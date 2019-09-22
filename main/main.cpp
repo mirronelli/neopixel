@@ -44,7 +44,7 @@ void Main::app_main(void)
 	// mqttClient->Subscribe(mqttCommandTopic, 1, Main::HandleMqttMessage, this);
 
 	int pixelCount = 150;
-	Pixels* pixels = new Pixels(GPIO_NUM_13, pixelCount, Pixels::StripType::ws6812, RMT_CHANNEL_0);
+	Pixels* pixels = new Pixels(GPIO_NUM_13, pixelCount, Pixels::StripType::ws6812, RMT_CHANNEL_0, 2.8);
 
 	Stars	stars	(pixels, pixelCount, 50, 99'000, 10, 50, 255, 63, 0);
 	Snake	snake	(pixels, pixelCount, 50, 18, 8);
@@ -54,7 +54,7 @@ void Main::app_main(void)
 	{
 		//snake.Run();
 		//stars.Run();
-		// police.Run();
+		//police.Run();
 		rainbow.Run();
 	}
 }
