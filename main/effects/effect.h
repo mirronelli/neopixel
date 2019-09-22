@@ -6,18 +6,16 @@
 class Effect
 {
 	protected:
-		Pixels* pixels;
 		int pixelCount;
 		int refreshSpeed;
 
 	public:
-		Effect(Pixels *pixels, int pixelCount, int refreshSpeed):
-			pixels(pixels),
+		Effect(int pixelCount, int refreshSpeed):
 			pixelCount(pixelCount),
 			refreshSpeed(refreshSpeed){};
 
 		virtual ~Effect(){};
-		virtual void Run();
-		void WriteAndWait();
+		virtual void Run(Pixels	*pixels);
+		void WriteAndWait(Pixels *pixels);
 };
 #endif

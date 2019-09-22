@@ -14,6 +14,7 @@
 #include "effects/stars.h"
 #include "effects/police.h"
 #include "effects/rainbow.h"
+#include "effects/effectFactory.h"
 
 using namespace std;
 
@@ -45,11 +46,11 @@ void Main::Run()
 	pixelCount = 150;
 	delay = 50;
 	pixels = new Pixels(GPIO_NUM_13, pixelCount, Pixels::StripType::ws6812, RMT_CHANNEL_0, 2.8);
-	currentEffect = (Effect *)new Rainbow(pixels, pixelCount, delay);
+	currentEffect = EffectFactory::CreateEffect("snake", 150, 5);
 
 	while (true)
 	{
-		currentEffect->Run();
+		currentEffect->Run(pixels);
 	}
 }
 
@@ -86,35 +87,17 @@ void Main::ProcessCommand(string command)
 
 void Main::SetEffect(string effect)
 {
-	printf("setting effect: %s\n", effect.c_str());
-	size_t separatorPos = effect.find(':');
-	if (separatorPos != string::npos)
-	{
-		string effectName = effect.substr(0, separatorPos);
-		string effectParameters = effect.substr(separatorPos + 1, string::npos);
+	printf("setting effect: \"%s\"\n", effect.c_str());
 
+	try
+	{
+		Effect *newEffect = EffectFactory::CreateEffect(effect, pixelCount, delay);
 		pixels->Clear();
 		delete (currentEffect);
-
-		if (effectName == "snake")
-		{
-			printf("starting snake\n");
-			currentEffect = (Effect *) new Snake(pixels, pixelCount, delay, 32, 8);
-		}
-		else if (effectName == "stars")
-		{
-			printf("starting stars\n");
-			currentEffect = (Effect *) new Stars(pixels, pixelCount, delay, 99'000, 10, 255, 127, 0, 0);
-		}
-		else if (effectName == "police")
-		{
-			printf("starting police\n");
-			currentEffect = (Effect *) new Police(pixels, pixelCount, delay);
-		}
-		else if (effectName == "rainbow")
-		{
-			printf("starting rainbow\n");
-			currentEffect = (Effect *) new Rainbow(pixels, pixelCount, delay);
-		}
+		currentEffect = newEffect;
+	}
+	catch (std::exception& e)
+	{
+		printf("could not set effect, giving up command\n");
 	}
 }

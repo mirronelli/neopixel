@@ -1,23 +1,18 @@
 #ifndef police_h
 #define police_h
 
-#include "../neopixel.h"
 #include "effect.h"
 
 class Police : Effect
 {
-	public:
-		Police(Pixels *pixels, int pixelCount, int refreshSpeed):
-			Effect(pixels, pixelCount, refreshSpeed),
-			halfPixels(pixelCount/2){};
+public:
+	Police(int pixelCount, int refreshSpeed);
+	void Run(Pixels *pixels);
 
-		void Run();
-		
-	private:
-		void FirstRun();
-		int firstPixel = 0;
-		int halfPixels;
-		bool firstRun = true;
-
+private:
+	void FirstRun(Pixels *pixels);
+	int firstPixel = 0;
+	int halfPixels;
+	bool firstRun = true;
 };
 #endif

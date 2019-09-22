@@ -1,11 +1,16 @@
 #include "rainbow.h"
 #include "math.h"
 
-void Rainbow::Run()
+Rainbow::Rainbow(int pixelCount, int refreshSpeed):
+	Effect(pixelCount, refreshSpeed),
+	phaseLength(pixelCount / 6),
+	phaseStepCoefficient(pow(256, 1.0 / phaseLength)){};
+
+void Rainbow::Run(Pixels *pixels)
 {
 	if (firstRun)
 	{
-		FirstRun();
+		FirstRun(pixels);
 	}
 	else
 	{
@@ -18,10 +23,10 @@ void Rainbow::Run()
 		pixels->SetPixel(0, lastPixel);
 	}
 	
-	WriteAndWait();
+	WriteAndWait(pixels);
 }
 
-void Rainbow::FirstRun()
+void Rainbow::FirstRun(Pixels *pixels)
 {
 	uint8_t r,g,b;
 

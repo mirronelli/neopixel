@@ -2,8 +2,8 @@
 #include "math.h"
 #include <algorithm>
 
-Stars::Stars(Pixels *pixels, int pixelCount, int refreshSpeed, int probability, int fadeSpeed, uint8_t red, uint8_t green, uint8_t blue, uint8_t white) : 
-	Effect(pixels, pixelCount, refreshSpeed),
+Stars::Stars(int pixelCount, int refreshSpeed, int probability, int fadeSpeed, uint8_t red, uint8_t green, uint8_t blue, uint8_t white) : 
+	Effect(pixelCount, refreshSpeed),
 	newStarProbability(probability),
 	fadeSpeed(fadeSpeed),
 	red(red),
@@ -16,7 +16,7 @@ Stars::Stars(Pixels *pixels, int pixelCount, int refreshSpeed, int probability, 
 	whiteFadeStep(white / fadeSpeed)
 {}
 
-void Stars::Run()
+void Stars::Run(Pixels* pixels)
 {
 	for (int i = 0; i < pixelCount; i++)
 	{
@@ -40,5 +40,5 @@ void Stars::Run()
 		pixels->SetPixel(i, pixel);
 	}
 	
-	WriteAndWait();
+	WriteAndWait(pixels);
 }

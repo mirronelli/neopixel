@@ -4,7 +4,7 @@
 #include "effect.h"
 #include "../neopixel.h"
 
-void Effect::WriteAndWait()
+void Effect::WriteAndWait(Pixels* pixels)
 {
 	pixels->Write();
 	

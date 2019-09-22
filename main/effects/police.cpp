@@ -1,10 +1,14 @@
 #include "police.h"
 
-void Police::Run()
+Police::Police(int pixelCount, int refreshSpeed):
+	Effect(pixelCount, refreshSpeed),
+	halfPixels(pixelCount / 2){};
+
+void Police::Run(Pixels *pixels)
 {
 	if (firstRun)
 	{
-		FirstRun();
+		FirstRun(pixels);
 	} 
 	else
 	{
@@ -28,10 +32,10 @@ void Police::Run()
 			firstPixel = 0;
 		}
 	}
-	WriteAndWait();
+	WriteAndWait(pixels);
 }
 
-void Police::FirstRun()
+void Police::FirstRun(Pixels *pixels)
 {
 	for (int i = 0; i < pixelCount; i++)
 	{

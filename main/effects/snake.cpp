@@ -1,7 +1,12 @@
 #include "snake.h"
 #include <algorithm>
 
-void Snake::Run()
+Snake::Snake(int pixelCount, int refreshSpeed, int effectPixelCount, int dimmedCount) : 
+	Effect(pixelCount, refreshSpeed),
+	effectPixelCount(effectPixelCount),
+	dimmedCount(dimmedCount){};
+
+void Snake::Run(Pixels* pixels)
 {
 	HalfSnake(pixels, firstPixel, effectPixelCount, dimmedCount);
 
@@ -32,5 +37,5 @@ void Snake::HalfSnake(Pixels *pixels, int firstPixel, int effectPixelCount, int 
 		pixels->SetPixel(lastPixel - i, luminance, 0, 0, 0);
 	}
 
-	WriteAndWait();
+	WriteAndWait(pixels);
 }

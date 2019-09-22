@@ -1,14 +1,13 @@
 #ifndef stars_h
 #define stars_h
 
-#include "../neopixel.h"
 #include "effect.h"
 
 class Stars : Effect
 {
 public:
-	Stars(Pixels *pixels, int pixelCount, int refreshSpeed, int probability, int fadeSpeed, uint8_t red, uint8_t green, uint8_t blue, uint8_t white);
-	void Run();
+	Stars(int pixelCount, int refreshSpeed, int probability, int fadeSpeed, uint8_t red, uint8_t green, uint8_t blue, uint8_t white);
+	void Run(Pixels* pixels);
 
 private:
 	int newStarProbability;
