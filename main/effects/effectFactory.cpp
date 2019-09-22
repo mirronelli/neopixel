@@ -21,11 +21,11 @@ Effect *EffectFactory::CreateEffect(string effectDefinition, int defaultCount, i
 		{
 			effect = CreateStars(effectParameters, defaultCount, defaultDelay);
 		}
-		else if (effectName == "police")
+		else if (effectName == "rainbow")
 		{
 			effect = CreateRainbow(effectParameters, defaultCount, defaultDelay);
 		}
-		else if (effectName == "rainbow")
+		else if (effectName == "police")
 		{
 			effect = CreatePolice(effectParameters, defaultCount, defaultDelay);
 		}
