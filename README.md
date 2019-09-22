@@ -1,5 +1,9 @@
 # neopixel
-An esp-idf based ws6812 neopixel implementation using rmt with a library of effects.
+An ESP IDF based neopixel implementation for ws6812 led stripes using RMT with a library of effects.
+The project is a standalone executable that drives neopixel leds using the RMT. The effects are parametric.
+It listens to mqtt commands to run the effects.
+
+The neopixel class, base effect class and its derivates can be also used as libraries in other projects.
 
 ## To build:
 - Setup the ESP IDF toolchain according to: https://docs.espressif.com/projects/esp-idf/en/latest/get-started/linux-setup.html 
