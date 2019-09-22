@@ -44,18 +44,20 @@ void Main::app_main(void)
 	// mqttClient->Subscribe(mqttCommandTopic, 1, Main::HandleMqttMessage, this);
 
 	int pixelCount = 150;
+	int delay = 50;
+	
 	Pixels* pixels = new Pixels(GPIO_NUM_13, pixelCount, Pixels::StripType::ws6812, RMT_CHANNEL_0, 2.8);
+	Stars	stars	(pixels, pixelCount, delay, 99'000, 10, 50, 255, 63, 0);
+	Snake	snake	(pixels, pixelCount, delay, 32, 8);
+	Police	police	(pixels, pixelCount, delay);
+	Rainbow rainbow	(pixels, pixelCount, delay);
 
-	Stars	stars	(pixels, pixelCount, 50, 99'000, 10, 50, 255, 63, 0);
-	Snake	snake	(pixels, pixelCount, 50, 18, 8);
-	Police	police	(pixels, pixelCount, 5);
-	Rainbow	rainbow	(pixels, pixelCount, 30);
 	while (true)
 	{
-		//snake.Run();
+		snake.Run();
 		//stars.Run();
 		//police.Run();
-		rainbow.Run();
+		//rainbow.Run();
 	}
 }
 

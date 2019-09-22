@@ -1,4 +1,5 @@
 #include "snake.h"
+#include <algorithm>
 
 void Snake::Run()
 {
@@ -22,15 +23,13 @@ void Snake::HalfSnake(Pixels *pixels, int firstPixel, int effectPixelCount, int 
 	int lastPixel = firstPixel + effectPixelCount - 1;
 	int luminance;
 
+	int luminanceStep = 256 / dimmedCount;
 	for (int i = 0; i < halfCount; i++)
 	{
-		if (i < dimmedCount)
-			luminance = 1 << i;
-		else
-			luminance = 256;
+		luminance = std::min(i * luminanceStep, 255);
 
-		pixels->SetPixel(firstPixel + i, luminance - 1, 0, 0, 0);
-		pixels->SetPixel(lastPixel - i, luminance - 1, 0, 0, 0);
+		pixels->SetPixel(firstPixel + i, luminance, 0, 0, 0);
+		pixels->SetPixel(lastPixel - i, luminance, 0, 0, 0);
 	}
 
 	WriteAndWait();

@@ -78,6 +78,7 @@ void Pixels::SetupPixel(int index)
 	this->pixelData[firstByteIndex + 1] = 0;
 	this->pixelData[firstByteIndex + 2] = 0;
 	this->pixelData[firstByteIndex + 3] = 0;
+
 	for (int i = index * 4 * 8; i < (index + 1) * 4 * 8; i++)
 	{
 		SetupPixelBit(i);
@@ -111,13 +112,19 @@ void Pixels::SetupRmt()
 
 Pixel Pixels::GetPixel(int index)
 {
-	Pixel pixel;
+	if (index > pixelCount || index < 0)
+	{
+		throw std::out_of_range("index out of range");
+	}
+
 	int firstByteIndex = index * 4;
 
+	Pixel pixel;
 	pixel.white 	= this->pixelData[firstByteIndex + 0];
 	pixel.blue 		= this->pixelData[firstByteIndex + 1];
 	pixel.red 		= this->pixelData[firstByteIndex + 2];
 	pixel.green 	= this->pixelData[firstByteIndex + 3];
+
 	return pixel;
 }
 
@@ -134,7 +141,6 @@ void Pixels::SetPixel(int index, uint8_t red, uint8_t green, uint8_t blue, uint8
 	}
 	
 	int firstByteIndex = index * 4;
-
 	this->pixelData[firstByteIndex + 0] = white;
 	this->pixelData[firstByteIndex + 1] = blue;
 	this->pixelData[firstByteIndex + 2] = red;
