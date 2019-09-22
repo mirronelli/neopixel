@@ -1,6 +1,6 @@
 # neopixel
 An ESP IDF based neopixel implementation for ws6812 led stripes using RMT with a library of effects.
-The project is a standalone executable that drives neopixel leds using the RMT. The effects are parametric.
+The project is a standalone executable running on an ESP32 that drives neopixel leds using the RMT. The effects are parametric.
 It listens to mqtt commands to run the effects.
 
 The neopixel class, base effect class and its derivates can be also used as libraries in other projects.
