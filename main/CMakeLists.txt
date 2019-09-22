@@ -15,4 +15,4 @@ set (COMPONENT_SRCS
 set(COMPONENT_ADD_INCLUDEDIRS "")
 
 register_component()
-component_compile_options(-std=c++17 -frtti)
+component_compile_options(-std=c++17)

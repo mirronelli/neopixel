@@ -27,6 +27,7 @@ class Pixels
 		Pixel GetPixel(int index);
 
 		void Write();
+		void Clear();
 
 	private:
 		gpio_num_t pin;

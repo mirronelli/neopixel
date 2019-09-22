@@ -1,13 +1,23 @@
 #include "stars.h"
 #include "math.h"
+#include <algorithm>
+
+Stars::Stars(Pixels *pixels, int pixelCount, int refreshSpeed, int probability, int fadeSpeed, uint8_t red, uint8_t green, uint8_t blue, uint8_t white) : 
+	Effect(pixels, pixelCount, refreshSpeed),
+	newStarProbability(probability),
+	fadeSpeed(fadeSpeed),
+	red(red),
+	green(green),
+	blue(blue),
+	white(white),
+	redFadeStep(red / fadeSpeed),
+	greenFadeStep(green / fadeSpeed),
+	blueFadeStep(blue / fadeSpeed),
+	whiteFadeStep(white / fadeSpeed)
+{}
 
 void Stars::Run()
 {
-	double redFadeCoefficient = pow(red, 1.0 / fadeSpeed);
-	double greenFadeCoefficient = pow(green, 1.0 / fadeSpeed);
-	double blueFadeCoefficient = pow(blue, 1.0 / fadeSpeed);
-	double whiteFadeCoefficient = pow(white, 1.0 / fadeSpeed);
-
 	for (int i = 0; i < pixelCount; i++)
 	{
 		Pixel pixel = pixels->GetPixel(i);
@@ -21,25 +31,10 @@ void Stars::Run()
 		}
 		else
 		{
-			if (redFadeCoefficient > 0)
-			{
-				pixel.red /= redFadeCoefficient;
-			}
-
-			if (greenFadeCoefficient > 1)
-			{
-				pixel.green /= greenFadeCoefficient;
-			}
-
-			if (blueFadeCoefficient > 1)
-			{
-				pixel.blue /= blueFadeCoefficient;
-			}
-
-			if (whiteFadeCoefficient > 1)
-			{
-				pixel.white /= whiteFadeCoefficient;
-			}
+			pixel.red	= std::max(0, pixel.red		- redFadeStep);
+			pixel.green = std::max(0, pixel.green	- greenFadeStep);
+			pixel.blue 	= std::max(0, pixel.blue	- blueFadeStep);
+			pixel.white = std::max(0, pixel.white	- whiteFadeStep);
 		}
 
 		pixels->SetPixel(i, pixel);

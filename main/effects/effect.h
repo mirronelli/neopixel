@@ -16,6 +16,8 @@ class Effect
 			pixelCount(pixelCount),
 			refreshSpeed(refreshSpeed){};
 
+		virtual ~Effect(){};
+		virtual void Run();
 		void WriteAndWait();
 };
 #endif

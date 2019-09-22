@@ -29,6 +29,11 @@ void Pixels::Write()
 	rmt_write_items(this->channel, this->rmtItems, this->bitCount, true);
 }
 
+void Pixels::Clear()
+{
+	SetupPixels();
+}
+
 void Pixels::SetupTiming()
 {
 	// ws6812 and ws2812 timings
