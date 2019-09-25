@@ -16,6 +16,7 @@
 #include "effects/police.h"
 #include "effects/rainbow.h"
 #include "effects/effectFactory.h"
+#include "nvs_flash.h"
 
 using namespace std;
 
@@ -43,6 +44,7 @@ void Main::Run()
 	// mqttClient = new mMqttClient(mqttBrokerAddress);
 	// mqttCommandReturnTopic = mqttCommandTopic + "Ret";
 	// mqttClient->Subscribe(mqttCommandTopic, 1, Main::HandleMqttMessage, this);
+	nvs_flash_init();
 	mBle_init();
 
 	pixelCount = 150;
