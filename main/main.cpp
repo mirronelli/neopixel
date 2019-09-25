@@ -5,8 +5,9 @@
 #include <string>
 
 //my libs
-#include "mWifiClient.h"
-#include "mMqttClient.h"
+// #include "mWifiClient.h"
+// #include "mMqttClient.h"
+#include "mBle.h"
 
 #include "main.h"
 #include "neopixel.h"
@@ -37,11 +38,12 @@ void app_main()
 
 void Main::Run()
 {
-	wifiClient = new mWifiClient(CONFIG_WIFI_SSID, CONFIG_WIFI_PASSWORD, 5);
-	StartWifi();
-	mqttClient = new mMqttClient(mqttBrokerAddress);
-	mqttCommandReturnTopic = mqttCommandTopic + "Ret";
-	mqttClient->Subscribe(mqttCommandTopic, 1, Main::HandleMqttMessage, this);
+	// wifiClient = new mWifiClient(CONFIG_WIFI_SSID, CONFIG_WIFI_PASSWORD, 5);
+	// StartWifi();
+	// mqttClient = new mMqttClient(mqttBrokerAddress);
+	// mqttCommandReturnTopic = mqttCommandTopic + "Ret";
+	// mqttClient->Subscribe(mqttCommandTopic, 1, Main::HandleMqttMessage, this);
+	mBle_init();
 
 	pixelCount = 150;
 	delay = 50;
@@ -56,48 +58,48 @@ void Main::Run()
 
 void Main::StartWifi()
 {
-	int retryCount = 0;
-	while (!wifiClient->Connect(++retryCount * 5000) && retryCount < 5)
-	{
-		ESP_LOGI(logTag, "Failed to connect. Retrying.. %d/5", retryCount);
-	}
+	// int retryCount = 0;
+	// while (!wifiClient->Connect(++retryCount * 5000) && retryCount < 5)
+	// {
+	// 	ESP_LOGI(logTag, "Failed to connect. Retrying.. %d/5", retryCount);
+	// }
 }
 
 void Main::HandleMqttMessage(string topic, string message, void* arg)
 {
-	Main* instance = (Main*)arg;
-	instance->ProcessCommand(message);
+	// Main* instance = (Main*)arg;
+	// instance->ProcessCommand(message);
 }
 
 void Main::ProcessCommand(string command)
 {
-	printf("got command: %s\n", command.c_str());
-	size_t separatorPos = command.find(':');
-	if (separatorPos != string::npos)
-	{
-		string commandName = command.substr(0, separatorPos);
-		string parameterString = command.substr(separatorPos + 1, string::npos);
+	// printf("got command: %s\n", command.c_str());
+	// size_t separatorPos = command.find(':');
+	// if (separatorPos != string::npos)
+	// {
+	// 	string commandName = command.substr(0, separatorPos);
+	// 	string parameterString = command.substr(separatorPos + 1, string::npos);
 
-		if (commandName == "effect")
-		{
-			SetEffect(parameterString);
-		}
-	}
+	// 	if (commandName == "effect")
+	// 	{
+	// 		SetEffect(parameterString);
+	// 	}
+	// }
 }
 
 void Main::SetEffect(string effect)
 {
-	printf("setting effect: \"%s\"\n", effect.c_str());
+	// printf("setting effect: \"%s\"\n", effect.c_str());
 
-	try
-	{
-		Effect *newEffect = EffectFactory::CreateEffect(effect, pixelCount, delay);
-		pixels->Clear();
-		delete (currentEffect);
-		currentEffect = newEffect;
-	}
-	catch (std::exception& e)
-	{
-		printf("could not set effect, giving up command\n");
-	}
+	// try
+	// {
+	// 	Effect *newEffect = EffectFactory::CreateEffect(effect, pixelCount, delay);
+	// 	pixels->Clear();
+	// 	delete (currentEffect);
+	// 	currentEffect = newEffect;
+	// }
+	// catch (std::exception& e)
+	// {
+	// 	printf("could not set effect, giving up command\n");
+	// }
 }

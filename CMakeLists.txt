@@ -13,6 +13,7 @@ set(COMPONENTS
 	"driver"
 	"esptool_py"
 	"log"
+	"bt"
 )
 
 project(neopixel)
