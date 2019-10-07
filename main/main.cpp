@@ -20,7 +20,7 @@
 
 using namespace std;
 
-static const char *logTag = "Main";
+//static const char *logTag = "Main";
 
 static string mqttCommandTopic = CONFIG_MQTT_COMMAND_TOPIC;
 static string mqttCommandReturnTopic; // will be the mqttCommandTopic + "Ret"
