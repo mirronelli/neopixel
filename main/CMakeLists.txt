@@ -11,7 +11,7 @@ set (COMPONENT_SRCS
   "effects/police.cpp"
   "effects/rainbow.cpp"
   "effects/effectFactory.cpp"
-  "mBle.c"
+  "commandReader.cpp"
 )
 
 set(COMPONENT_ADD_INCLUDEDIRS "")

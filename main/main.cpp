@@ -7,8 +7,6 @@
 //my libs
 // #include "mWifiClient.h"
 // #include "mMqttClient.h"
-#include "mBle.h"
-
 #include "main.h"
 #include "neopixel.h"
 #include "effects/snake.h"
@@ -16,15 +14,15 @@
 #include "effects/police.h"
 #include "effects/rainbow.h"
 #include "effects/effectFactory.h"
-#include "nvs_flash.h"
+#include "commandReader.h"
 
 using namespace std;
 
 //static const char *logTag = "Main";
 
-static string mqttCommandTopic = CONFIG_MQTT_COMMAND_TOPIC;
-static string mqttCommandReturnTopic; // will be the mqttCommandTopic + "Ret"
-static const string mqttBrokerAddress = CONFIG_MQTT_BROKER_ADDRESS;
+// static string mqttCommandTopic = CONFIG_MQTT_COMMAND_TOPIC;
+// static string mqttCommandReturnTopic; // will be the mqttCommandTopic + "Ret"
+// static const string mqttBrokerAddress = CONFIG_MQTT_BROKER_ADDRESS;
 
 extern "C"
 {
@@ -44,17 +42,24 @@ void Main::Run()
 	// mqttClient = new mMqttClient(mqttBrokerAddress);
 	// mqttCommandReturnTopic = mqttCommandTopic + "Ret";
 	// mqttClient->Subscribe(mqttCommandTopic, 1, Main::HandleMqttMessage, this);
-	nvs_flash_init();
-	mBle_init();
+
+	CommandReader commandReader = CommandReader();
 
 	pixelCount = 150;
 	delay = 50;
 	pixels = new Pixels(GPIO_NUM_13, pixelCount, Pixels::StripType::ws6812, RMT_CHANNEL_0, 2.8);
-	currentEffect = EffectFactory::CreateEffect("snake", 150, 5);
+	currentEffect = EffectFactory::CreateEffect("rainbow", 150, 5);
+	commandReader.ReadCommand();
 
 	while (true)
 	{
 		currentEffect->Run(pixels);
+		if (commandReader.signaled)
+		{
+			string command((char*)commandReader.buffer);
+			ProcessCommand(command);
+			commandReader.ReadCommand();
+		}
 	}
 }
 
@@ -75,33 +80,33 @@ void Main::HandleMqttMessage(string topic, string message, void* arg)
 
 void Main::ProcessCommand(string command)
 {
-	// printf("got command: %s\n", command.c_str());
-	// size_t separatorPos = command.find(':');
-	// if (separatorPos != string::npos)
-	// {
-	// 	string commandName = command.substr(0, separatorPos);
-	// 	string parameterString = command.substr(separatorPos + 1, string::npos);
+	printf("got command: %s\n", command.c_str());
+	size_t separatorPos = command.find(':');
+	if (separatorPos != string::npos)
+	{
+		string commandName = command.substr(0, separatorPos);
+		string parameterString = command.substr(separatorPos + 1, string::npos);
 
-	// 	if (commandName == "effect")
-	// 	{
-	// 		SetEffect(parameterString);
-	// 	}
-	// }
+		if (commandName == "effect")
+		{
+			SetEffect(parameterString);
+		}
+	}
 }
 
 void Main::SetEffect(string effect)
 {
-	// printf("setting effect: \"%s\"\n", effect.c_str());
+	printf("setting effect: \"%s\"\n", effect.c_str());
 
-	// try
-	// {
-	// 	Effect *newEffect = EffectFactory::CreateEffect(effect, pixelCount, delay);
-	// 	pixels->Clear();
-	// 	delete (currentEffect);
-	// 	currentEffect = newEffect;
-	// }
-	// catch (std::exception& e)
-	// {
-	// 	printf("could not set effect, giving up command\n");
-	// }
+	try
+	{
+		Effect *newEffect = EffectFactory::CreateEffect(effect, pixelCount, delay);
+		pixels->Clear();
+		delete (currentEffect);
+		currentEffect = newEffect;
+	}
+	catch (std::exception& e)
+	{
+		printf("could not set effect, giving up command\n");
+	}
 }
