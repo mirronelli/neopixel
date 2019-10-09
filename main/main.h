@@ -7,7 +7,6 @@ public:
 	void Run();
 
 private:
-	void StartWifi();
 	void ProcessCommand(std::string command);
 	void SetEffect(std::string effect);
 	static void HandleMqttMessage(std::string topic, std::string message, void* arg);
