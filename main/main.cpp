@@ -5,8 +5,6 @@
 #include <string>
 
 //my libs
-// #include "mWifiClient.h"
-// #include "mMqttClient.h"
 #include "main.h"
 #include "neopixel.h"
 #include "effects/snake.h"
