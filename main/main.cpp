@@ -37,7 +37,7 @@ void app_main()
 
 void Main::Run()
 {
-	CommandReader commandReader = CommandReader();
+	UartCommandReader commandReader = UartCommandReader();
 
 	pixelCount = 150;
 	delay = 50;

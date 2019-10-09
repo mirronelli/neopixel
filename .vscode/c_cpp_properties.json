@@ -77,7 +77,7 @@
                 "path": [
 					"${workspaceFolder}/**",
                     "${env:IDF_PATH}/components",
-					"/home/mirronelli/code/esp/components/**"
+					"${workspaceFolder}/../components/**"
                 ]
             },
             "defines": [
