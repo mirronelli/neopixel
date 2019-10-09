@@ -4,6 +4,7 @@
 #include "freertos/task.h"
 #include "driver/uart.h"
 #include "driver/gpio.h"
+#include "cstring"
 
 #define PIN_TXD  (GPIO_NUM_4)
 #define PIN_RXD  (GPIO_NUM_5)
@@ -40,7 +41,7 @@ void CommandReader::PollForData(void* arg)
 	instance->signaled = false;
 	while (!instance->signaled)
 	{
-		int inputLength = uart_read_bytes(UART_NUM_1, instance->buffer + totalLegth, sizeof(instance->buffer), 20 / portTICK_RATE_MS);
+		int inputLength = uart_read_bytes(UART_NUM_1, instance->buffer + totalLegth, sizeof(instance->buffer) - totalLegth, 20 / portTICK_RATE_MS);
        	uart_write_bytes(UART_NUM_1, ((const char *) instance->buffer) + totalLegth, inputLength);
 		totalLegth += inputLength;
 
@@ -50,6 +51,12 @@ void CommandReader::PollForData(void* arg)
 
 			instance->buffer[totalLegth-1] = 0;
 			instance->signaled = true;
+		}
+		else if (totalLegth >= sizeof(instance->buffer))
+		{
+			totalLegth = 0;
+			const char *errorMessage = "\r\noverflow\r\n" ;
+			uart_write_bytes(UART_NUM_1, errorMessage, strlen(errorMessage));
 		}
 	}
 
