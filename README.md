@@ -1,8 +1,42 @@
 # neopixel
-An ESP IDF based neopixel implementation for ws6812 led stripes using RMT with a library of effects.
-The project is a standalone executable running on an ESP32 that drives neopixel leds using the RMT. The effects are parametric.
-It listens to mqtt commands to run the effects.
+An ESP IDF based neopixel implementation for ws6812 led strips.
+There is a standalone executable that automatically starts with a preset effect. The effects can be switched at runtime via simple text commands delivered over serial line. RMT is used to drive the leds instead of bit banging to deliver flicker free effects.
 
+A former version used wifi or bluetooth to receive the commands but since both of these are heavily active at random times, even the RMT was not able to deliver flicker free experience. The command system was therefore reimplemented to use UART and since then, no flickering was experienced. I will write a separate wifi to serial based translator that can run on a peer ESP32 connected via serial to the main unit so that a true wireless solution can be achieved.
+
+## Serial connection from PC
+Connect the unit using an FTDI USB to Serial board, or any other serial port emulation or a real serial port
+- ESP TX GPIO4 : RX on FTDI
+- ESP RX GPIO5 : TX on FTDI
+- ESP GND : GND on FTDI
+
+Run a terminal emulation such as putty and connect to the virtual serial port created by the FTDI. Alternatively you can use:
+
+`idf.py monitor -p [port]`
+
+Be sure to use the port registered for the ftdi and not the port used for flashing.
+## Command syntax:
+
+`[command]:[subcommand]:[param1];[param2];....`
+
+## Current commands:
+- `effect:[effect name]:[effect params]`  
+	all effects have some default parameters if parematers are omitted
+	- `effect:stars` | `effect:stars:[led count];[iteration delay ms]`  
+	randomly shows fading stars
+	- `effect:police` | `effect:police:[led count];[iteration delay ms]`  
+	a red and blue cycle to light up your neigborhood and scare the criminals
+	- `effect:rainbow` | `effect:rainbow:[led count];[iteration delay ms]`  
+	a color spectrum rainbow effect moving over the strip
+	- `effect:police` | `effect:police:[led count];[iteration delay ms]`  
+	a red and blue cycle to light up your neigborhood
+
+## Custom effects
+New effects can be written by sublcasing the effect class and overriding the virtual Run method. Note that the run method is supposed to do a single frame of the effect and return.  
+
+To support commands for new effects, modify the effectFactory class that parses parameters and creates effect instances at runtime. It is the brains behind effect command parsing.
+
+## Use as a library
 The neopixel class, base effect class and its derivates can be also used as libraries in other projects.
 
 ## To build:

@@ -1,4 +1,4 @@
-#include "commandReader.h"
+#include "uartCommandReader.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -11,7 +11,7 @@
 #define PIN_RTS  (UART_PIN_NO_CHANGE)
 #define PIN_CTS  (UART_PIN_NO_CHANGE)
 
-CommandReader::CommandReader()
+UartCommandReader::UartCommandReader()
 {
 	/* Configure parameters of an UART driver,
      * communication pins and install the driver */
@@ -26,16 +26,16 @@ CommandReader::CommandReader()
 	uart_driver_install(UART_NUM_1, sizeof(buffer) * 2, 0, 0, NULL, 0);
 }
 
-CommandReader::~CommandReader(){}
+UartCommandReader::~UartCommandReader(){}
 
-void CommandReader::ReadCommand()
+void UartCommandReader::ReadCommand()
 {
-	xTaskCreate(CommandReader::PollForData, "Poll Uart", 1024, this, 10, NULL);
+	xTaskCreate(UartCommandReader::PollForData, "Poll Uart", 1024, this, 10, NULL);
 }
 
-void CommandReader::PollForData(void* arg)
+void UartCommandReader::PollForData(void* arg)
 {
-	CommandReader* instance = static_cast<CommandReader*>(arg);
+	UartCommandReader* instance = static_cast<UartCommandReader*>(arg);
 	int totalLegth = 0;
 
 	instance->signaled = false;

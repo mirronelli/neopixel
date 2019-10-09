@@ -14,7 +14,7 @@
 #include "effects/police.h"
 #include "effects/rainbow.h"
 #include "effects/effectFactory.h"
-#include "commandReader.h"
+#include "uartCommandReader.h"
 
 using namespace std;
 
@@ -37,12 +37,6 @@ void app_main()
 
 void Main::Run()
 {
-	// wifiClient = new mWifiClient(CONFIG_WIFI_SSID, CONFIG_WIFI_PASSWORD, 5);
-	// StartWifi();
-	// mqttClient = new mMqttClient(mqttBrokerAddress);
-	// mqttCommandReturnTopic = mqttCommandTopic + "Ret";
-	// mqttClient->Subscribe(mqttCommandTopic, 1, Main::HandleMqttMessage, this);
-
 	CommandReader commandReader = CommandReader();
 
 	pixelCount = 150;
@@ -61,21 +55,6 @@ void Main::Run()
 			commandReader.ReadCommand();
 		}
 	}
-}
-
-void Main::StartWifi()
-{
-	// int retryCount = 0;
-	// while (!wifiClient->Connect(++retryCount * 5000) && retryCount < 5)
-	// {
-	// 	ESP_LOGI(logTag, "Failed to connect. Retrying.. %d/5", retryCount);
-	// }
-}
-
-void Main::HandleMqttMessage(string topic, string message, void* arg)
-{
-	// Main* instance = (Main*)arg;
-	// instance->ProcessCommand(message);
 }
 
 void Main::ProcessCommand(string command)

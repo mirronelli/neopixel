@@ -1,13 +1,13 @@
-#ifndef CommandReader_h
-#define CommandReader_h
+#ifndef UartCommandReader_h
+#define UartCommandReader_h
 
 #include "esp_types.h"
 
-class CommandReader
+class UartCommandReader
 {
 public:
-	CommandReader();
-	~CommandReader();
+	UartCommandReader();
+	~UartCommandReader();
 	void ReadCommand();
 	bool signaled;
 	uint8_t buffer[128];
