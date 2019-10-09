@@ -12,10 +12,11 @@
 				"${env:IDF_PATH}/components/bt/host/nimble/nimble/porting/npl/freertos/include",
 				"${env:IDF_PATH}/components/bt/host/nimble/nimble/porting/nimble/include",
 				"${env:IDF_PATH}/components/bt/host/nimble/nimble/nimble/include",
-                "${env:IDF_PATH}/components/driver/include",
+				"${env:IDF_PATH}/components/driver/include",
 				"${env:IDF_PATH}/components/driver/include/driver",
                 "${env:IDF_PATH}/components/esp32/include",
-                "${env:IDF_PATH}/components/ethernet/include",
+				"${env:IDF_PATH}/components/esp_ringbuf/include",
+				"${env:IDF_PATH}/components/ethernet/include",
                 "${env:IDF_PATH}/components/fatfs/src",
                 "${env:IDF_PATH}/components/freertos/include",
 				"${env:IDF_PATH}/components/esp_ringbuf/inlcude",
@@ -76,7 +77,7 @@
                 "path": [
 					"${workspaceFolder}/**",
                     "${env:IDF_PATH}/components",
-					"/home/mirronelli/code/esp/components/**"
+					"${workspaceFolder}/../components/**"
                 ]
             },
             "defines": [

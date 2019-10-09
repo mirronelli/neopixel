@@ -8,8 +8,6 @@ include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 
 set(COMPONENTS
 	"main"
-	"mWifiClient"
-	"mMqttClient"
 	"driver"
 	"esptool_py"
 	"log"
