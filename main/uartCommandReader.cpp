@@ -6,12 +6,10 @@
 #include "driver/gpio.h"
 #include "cstring"
 
-#define PIN_TXD  (GPIO_NUM_4)
-#define PIN_RXD  (GPIO_NUM_5)
 #define PIN_RTS  (UART_PIN_NO_CHANGE)
 #define PIN_CTS  (UART_PIN_NO_CHANGE)
 
-UartCommandReader::UartCommandReader()
+UartCommandReader::UartCommandReader(gpio_num_t rx, gpio_num_t tx)
 {
 	/* Configure parameters of an UART driver,
      * communication pins and install the driver */
@@ -22,7 +20,7 @@ UartCommandReader::UartCommandReader()
 		.stop_bits = UART_STOP_BITS_1,
 		.flow_ctrl = UART_HW_FLOWCTRL_DISABLE};
 	uart_param_config(UART_NUM_1, &uart_config);
-	uart_set_pin(UART_NUM_1, PIN_TXD, PIN_RXD, PIN_RTS, PIN_CTS);
+	uart_set_pin(UART_NUM_1, tx, rx, PIN_RTS, PIN_CTS);
 	uart_driver_install(UART_NUM_1, sizeof(buffer) * 2, 0, 0, NULL, 0);
 }
 

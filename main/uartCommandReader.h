@@ -2,11 +2,12 @@
 #define UartCommandReader_h
 
 #include "esp_types.h"
+#include "driver/gpio.h"
 
 class UartCommandReader
 {
 public:
-	UartCommandReader();
+	UartCommandReader(gpio_num_t rx, gpio_num_t tx);
 	~UartCommandReader();
 	void ReadCommand();
 	bool signaled;

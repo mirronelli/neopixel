@@ -1,23 +1,41 @@
 # put here your custom config value
 menu "Main Project Configuration"
-config WIFI_SSID
-    string "WiFi SSID"
+config COMMAND_TX_GPIO
+    int "TX Pin"
+	range 0 40
+	default 4
     help
-	SSID (network name) for the example to connect to.
+	GPIO used for uart TX
 
-config WIFI_PASSWORD
-    string "WiFi Password"
+config COMMAND_RX_GPIO
+    int "RX Pin"
+	range 0 40
+	default 5
     help
-	WiFi password (WPA or WPA2) for the example to use.
+	GPIO used for uart RX
 
-config MQTT_BROKER_ADDRESS
-    string "Mqtt Broker Address"
+config LED_PIN
+    int "neopixel gpio pin"
+	default 13
     help
-	Mqtt broker ip or dns name including 'Mqtt://' schema.
+	the pin that the data line of the led strip is connected to
 
-config MQTT_COMMAND_TOPIC
-    string "Command topic name"
+config LED_COUNT
+    int "default number of leds"
+	default 150
     help
-	Mqtt topic the commands are listened on.
+	the number of led for each effect if not supplied directly in command
+
+config FRAME_DELAY
+    int "default frame delay (ms)"
+	default 5
+    help
+	the number of miliseconds to wait between rendering each effect frame if not supplied directly in command
+
+config DEFAULT_EFFECT_COMMAND
+    string "default effect command"
+	default "effect:rainbow"
+    help
+	the default effect launched after start
 
 endmenu

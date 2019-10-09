@@ -54,10 +54,10 @@ Effect *EffectFactory::CreateSnake(string parameters, int defaultCount, int defa
 	{
 		ParameterParser parser(parameters);
 		return (Effect *) new Snake(
-			parser.GetNextInt(), 
-			parser.GetNextInt(), 
-			parser.GetNextInt(), 
-			parser.GetNextInt()
+			parser.GetNextInt(), // led count
+			parser.GetNextInt(), // frame delay
+			parser.GetNextInt(), // number of lit leds
+			parser.GetNextInt()  // number of semi lit leds (subset of lit leds)
 		);
 	}
 }
@@ -74,14 +74,14 @@ Effect *EffectFactory::CreateStars(string parameters, int defaultCount, int defa
 	{
 		ParameterParser parser(parameters);
 		return (Effect *) new Stars (
-			parser.GetNextInt(), 
-			parser.GetNextInt(), 
-			parser.GetNextInt(), 
-			parser.GetNextInt(),
-			parser.GetNextInt(), 
-			parser.GetNextInt(), 
-			parser.GetNextInt(), 
-			parser.GetNextInt()
+			parser.GetNextInt(), // led count
+			parser.GetNextInt(), // frame delay
+			parser.GetNextInt(), // new star probability (if random(100 000) > supplied value a new star occurs on a pixel)
+			parser.GetNextInt(), // fade speed
+			parser.GetNextInt(), // red
+			parser.GetNextInt(), // green
+			parser.GetNextInt(), // blue
+			parser.GetNextInt()  // white
 		);
 	}
 }
@@ -96,8 +96,8 @@ Effect *EffectFactory::CreateRainbow(string parameters, int defaultCount, int de
 	{
 		ParameterParser parser(parameters);
 		return (Effect *)new Rainbow(
-			parser.GetNextInt(),
-			parser.GetNextInt());
+			parser.GetNextInt(),  // led count
+			parser.GetNextInt()); // frame delay
 	}
 }
 
