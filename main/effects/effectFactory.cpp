@@ -54,10 +54,10 @@ Effect *EffectFactory::CreateSnake(string parameters, int defaultCount, int defa
 	{
 		ParameterParser parser(parameters);
 		return (Effect *) new Snake(
-			parser.GetNextInt(),
-			parser.GetNextInt(),
-			parser.GetNextInt(),
-			parser.GetNextInt()
+			parser.GetNextInt(), // led count
+			parser.GetNextInt(), // frame delay
+			parser.GetNextInt(), // snake length
+			parser.GetNextInt()  // snake dimed length
 		);
 	}
 }
