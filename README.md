@@ -55,3 +55,8 @@ The neopixel class, base effect class and its derivates can be also used as libr
 - send an mqtt message to trigger the change
 ``` mosquitto_pub -t YOURTOPIC -m "effect:snake:"```
 - future versions will parse parameters and pass those to effects
+
+
+### Build comments
+The project was written an built against esp-idf commit:
+02c7c3885e10c75772a3d0984c1cdbb6ad9484f3
