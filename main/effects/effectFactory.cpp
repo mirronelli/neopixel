@@ -54,10 +54,10 @@ Effect *EffectFactory::CreateSnake(string parameters, int defaultCount, int defa
 	{
 		ParameterParser parser(parameters);
 		return (Effect *) new Snake(
-			parser.GetNextInt(), // led count
-			parser.GetNextInt(), // frame delay
-			parser.GetNextInt(), // number of lit leds
-			parser.GetNextInt()  // number of semi lit leds (subset of lit leds)
+			parser.GetNextInt(),
+			parser.GetNextInt(),
+			parser.GetNextInt(),
+			parser.GetNextInt()
 		);
 	}
 }
@@ -66,8 +66,6 @@ Effect *EffectFactory::CreateStars(string parameters, int defaultCount, int defa
 {
 	if (parameters == "")
 	{
-		//(Effect *)new Stars(pixelCount, delay, 99'000, 10, 255, 127, 0, 0)
-
 		return (Effect *)new Stars(defaultCount, defaultDelay, 99'000, 10, 255, 127, 0, 0);
 	}
 	else 

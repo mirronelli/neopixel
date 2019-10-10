@@ -13,6 +13,4 @@ private:
 
 	Effect* currentEffect;
 	Pixels* pixels;
-	int pixelCount;
-	int delay;
 };

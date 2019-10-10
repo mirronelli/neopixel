@@ -24,7 +24,10 @@ UartCommandReader::UartCommandReader(gpio_num_t rx, gpio_num_t tx)
 	uart_driver_install(UART_NUM_1, sizeof(buffer) * 2, 0, 0, NULL, 0);
 }
 
-UartCommandReader::~UartCommandReader(){}
+UartCommandReader::~UartCommandReader()
+{
+	uart_driver_delete(UART_NUM_1);
+}
 
 void UartCommandReader::ReadCommand()
 {

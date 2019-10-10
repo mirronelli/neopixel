@@ -69,7 +69,7 @@ void Main::SetEffect(string effect)
 
 	try
 	{
-		Effect *newEffect = EffectFactory::CreateEffect(effect, pixelCount, delay);
+		Effect *newEffect = EffectFactory::CreateEffect(effect, CONFIG_LED_COUNT, CONFIG_FRAME_DELAY);
 		pixels->Clear();
 		delete (currentEffect);
 		currentEffect = newEffect;
