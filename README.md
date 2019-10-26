@@ -24,6 +24,8 @@ sample:
 ## Current commands:
 - `effect:[effect name]:[effect params]`  
 	all effects have some default parameters if parematers are omitted
+	- `effect:solid` | `effect:solid:[led count];[iteration delay ms];[red];[green];[blue];[white]`  
+	Set the strip to a fixed color.
 	- `effect:stars` | `effect:stars:[led count];[iteration delay ms];[new star probability x/100 000];[dimming steps count];[red];[green];[blue];[white]`  
 	Randomly shows fading stars. In each iteration all pixels are looped over. For a new star to occur at the given pixel a random number 0-100 000 is generated and compared to new star probability param. If higher a new star with the red, green, blue, white values is created. If the random number is lower the brightness of each channels is gradually decreased over dimming steps count iterations.  
 	- `effect:police` | `effect:police:[led count];[iteration delay ms];[brightness]`  
