@@ -59,7 +59,7 @@ Effect *EffectFactory::CreateSnake(string parameters, int defaultCount, int defa
 {
 	if (parameters == "")
 	{
-		return (Effect *)new Snake(defaultCount, defaultDelay, 32, 8, 255);
+		return (Effect *)new Snake(defaultCount, defaultDelay, 32, 8, 255, 0, 0, 0);
 	}
 	else 
 	{
@@ -69,7 +69,10 @@ Effect *EffectFactory::CreateSnake(string parameters, int defaultCount, int defa
 			parser.GetNextInt(), // frame delay
 			parser.GetNextInt(), // snake length
 			parser.GetNextInt(), // snake dimed length
-			parser.GetNextInt()  // brightness
+			parser.GetNextInt(), // red
+			parser.GetNextInt(), // green
+			parser.GetNextInt(), // blue
+			parser.GetNextInt()  // white
 		);
 	}
 }
