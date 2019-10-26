@@ -18,18 +18,20 @@ Be sure to use the port registered for the ftdi and not the port used for flashi
 ## Command syntax:
 
 `[command]:[subcommand]:[param1];[param2];....`
+sample:
+`effect:police:150;10;128`
 
 ## Current commands:
 - `effect:[effect name]:[effect params]`  
 	all effects have some default parameters if parematers are omitted
-	- `effect:stars` | `effect:stars:[led count];[iteration delay ms]`  
-	randomly shows fading stars
-	- `effect:police` | `effect:police:[led count];[iteration delay ms]`  
+	- `effect:stars` | `effect:stars:[led count];[iteration delay ms];[new star probability x/100 000];[dimming steps count];[red];[green];[blue];[white]`  
+	Randomly shows fading stars. In each iteration all pixels are looped over. For a new star to occur at the given pixel a random number 0-100 000 is generated and compared to new star probability param. If higher a new star with the red, green, blue, white values is created. If the random number is lower the brightness of each channels is gradually decreased over dimming steps count iterations.  
+	- `effect:police` | `effect:police:[led count];[iteration delay ms];[brightness]`  
 	a red and blue cycle to light up your neigborhood and scare the criminals
-	- `effect:rainbow` | `effect:rainbow:[led count];[iteration delay ms]`  
+	- `effect:rainbow` | `effect:rainbow:[led count];[iteration delay ms];[brightness]`  
 	a color spectrum rainbow effect moving over the strip
-	- `effect:police` | `effect:police:[led count];[iteration delay ms]`  
-	a red and blue cycle to light up your neigborhood
+	- `effect:snake` | `effect:snake:[led count];[iteration delay ms];[snake length];[dimmed tail length];[brightness]`  
+	a fixed color snake goes there and back again over the led strip
 
 ## Custom effects
 New effects can be written by sublcasing the effect class and overriding the virtual Run method. Note that the run method is supposed to do a single frame of the effect and return.  
