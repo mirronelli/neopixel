@@ -6,7 +6,7 @@
 class Police : Effect
 {
 public:
-	Police(int pixelCount, int refreshSpeed);
+	Police(int pixelCount, int refreshSpeed, uint8_t brightness);
 	void Run(Pixels *pixels);
 
 private:
@@ -14,5 +14,6 @@ private:
 	int firstPixel = 0;
 	int halfPixels;
 	bool firstRun = true;
+	uint8_t brightness = 255;
 };
 #endif

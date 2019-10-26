@@ -3,6 +3,7 @@
 
 #include "effect.h"
 #include "stars.h"
+#include "solid.h"
 #include "police.h"
 #include "rainbow.h"
 #include "snake.h"
@@ -16,6 +17,7 @@ class EffectFactory
 	private:
 		static Effect* CreateSnake(std::string parameters, int defaultCount, int defaultDelay);
 		static Effect* CreateStars(std::string parameters, int defaultCount, int defaultDelay);
+		static Effect* CreateSolid(std::string parameters, int defaultCount, int defaultDelay);
 		static Effect* CreateRainbow(std::string parameters, int defaultCount, int defaultDelay);
 		static Effect* CreatePolice(std::string parameters, int defaultCount, int defaultDelay);
 };

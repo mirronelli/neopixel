@@ -1,10 +1,10 @@
 #include "rainbow.h"
 #include "math.h"
 
-Rainbow::Rainbow(int pixelCount, int refreshSpeed):
-	Effect(pixelCount, refreshSpeed),
-	phaseLength(pixelCount / 6),
-	phaseStepCoefficient(pow(256, 1.0 / phaseLength)){};
+Rainbow::Rainbow(int pixelCount, int refreshSpeed, uint8_t brightness) : Effect(pixelCount, refreshSpeed),
+																		 phaseLength(pixelCount / 6),
+																		 phaseStepCoefficient(pow(brightness, 1.0 / phaseLength)),
+																		 brightness(brightness){};
 
 void Rainbow::Run(Pixels *pixels)
 {
@@ -34,39 +34,39 @@ void Rainbow::FirstRun(Pixels *pixels)
 	{
 		int phaseIndex = i / phaseLength;
 		int phaseStep = i % phaseLength;
-		double phaseStepSize = 255.0 / phaseLength;
+		double phaseStepSize = (brightness * 1.0) / phaseLength;
 		uint8_t ascendingValue = phaseStep * phaseStepSize;
 		uint8_t descendingValue = (phaseLength - phaseStep) * phaseStepSize;
 
 		switch (phaseIndex)
 		{
 		case 0:
-			r = 255;
+			r = brightness;
 			g = ascendingValue;
 			b = 0;
 			break;
 		case 1:
 			r = descendingValue;
-			g = 255;
+			g = brightness;
 			b = 0;
 			break;
 		case 2:
 			r = 0;
-			g = 255;
+			g = brightness;
 			b = ascendingValue;
 			break;
 		case 3:
 			r = 0;
 			g = descendingValue;
-			b = 255;
+			b = brightness;
 			break;
 		case 4:
 			r = ascendingValue;
 			g = 0;
-			b = 255;
+			b = brightness;
 			break;
 		case 5:
-			r = 255;
+			r = brightness;
 			g = 0;
 			b = descendingValue;
 			break;

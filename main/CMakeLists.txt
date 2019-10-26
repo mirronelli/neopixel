@@ -7,6 +7,7 @@ set (COMPONENT_SRCS
   "neopixel.cpp"
   "effects/snake.cpp"
   "effects/stars.cpp"
+  "effects/solid.cpp"
   "effects/effect.cpp"
   "effects/police.cpp"
   "effects/rainbow.cpp"

@@ -1,8 +1,9 @@
 #include "police.h"
 
-Police::Police(int pixelCount, int refreshSpeed):
+Police::Police(int pixelCount, int refreshSpeed, uint8_t brightness):
 	Effect(pixelCount, refreshSpeed),
-	halfPixels(pixelCount / 2){};
+	halfPixels(pixelCount / 2),
+	brightness(brightness){};
 
 void Police::Run(Pixels *pixels)
 {
@@ -17,13 +18,13 @@ void Police::Run(Pixels *pixels)
 
 		if (pixel.red == 0)
 		{
-			pixels->SetPixel(firstPixel, 255, 0, 0, 0);
-			pixels->SetPixel(lastPixel, 0, 0, 255, 0);
+			pixels->SetPixel(firstPixel, brightness, 0, 0, 0);
+			pixels->SetPixel(lastPixel, 0, 0, brightness, 0);
 		}
 		else 
 		{
-			pixels->SetPixel(lastPixel, 255, 0, 0, 0);
-			pixels->SetPixel(firstPixel, 0, 0, 255, 0);
+			pixels->SetPixel(lastPixel, brightness, 0, 0, 0);
+			pixels->SetPixel(firstPixel, 0, 0, brightness, 0);
 		}
 
 		firstPixel++;
@@ -43,9 +44,9 @@ void Police::FirstRun(Pixels *pixels)
 
 		if (i < halfPixels)
 		{
-			red = 255; blue = 0;
+			red = brightness; blue = 0;
 		} else {
-			blue = 255; red = 0;
+			blue = brightness; red = 0;
 		}
 
 		pixels->SetPixel(i, red, 0, blue, 0);

@@ -1,4 +1,11 @@
 #include "effectFactory.h"
+#include "effect.h"
+#include "stars.h"
+#include "solid.h"
+#include "police.h"
+#include "rainbow.h"
+#include "snake.h"
+
 #include <string>
 
 using namespace std;
@@ -20,6 +27,10 @@ Effect *EffectFactory::CreateEffect(string effectDefinition, int defaultCount, i
 		else if (effectName == "stars")
 		{
 			effect = CreateStars(effectParameters, defaultCount, defaultDelay);
+		}
+		else if (effectName == "solid")
+		{
+			effect = CreateSolid(effectParameters, defaultCount, defaultDelay);
 		}
 		else if (effectName == "rainbow")
 		{
@@ -48,7 +59,7 @@ Effect *EffectFactory::CreateSnake(string parameters, int defaultCount, int defa
 {
 	if (parameters == "")
 	{
-		return (Effect *)new Snake(defaultCount, defaultDelay, 32, 8);
+		return (Effect *)new Snake(defaultCount, defaultDelay, 32, 8, 255);
 	}
 	else 
 	{
@@ -57,7 +68,8 @@ Effect *EffectFactory::CreateSnake(string parameters, int defaultCount, int defa
 			parser.GetNextInt(), // led count
 			parser.GetNextInt(), // frame delay
 			parser.GetNextInt(), // snake length
-			parser.GetNextInt()  // snake dimed length
+			parser.GetNextInt(), // snake dimed length
+			parser.GetNextInt()  // brightness
 		);
 	}
 }
@@ -84,18 +96,40 @@ Effect *EffectFactory::CreateStars(string parameters, int defaultCount, int defa
 	}
 }
 
+Effect *EffectFactory::CreateSolid(string parameters, int defaultCount, int defaultDelay)
+{
+	if (parameters == "")
+	{
+		return (Effect *)new Solid(defaultCount, defaultDelay, 255, 255, 255, 255);
+	}
+	else 
+	{
+		ParameterParser parser(parameters);
+		return (Effect *) new Solid (
+			parser.GetNextInt(), // led count
+			parser.GetNextInt(), // frame delay
+			parser.GetNextInt(), // red
+			parser.GetNextInt(), // green
+			parser.GetNextInt(), // blue
+			parser.GetNextInt()  // white
+		);
+	}
+}
+
 Effect *EffectFactory::CreateRainbow(string parameters, int defaultCount, int defaultDelay)
 {
 	if (parameters == "")
 	{
-		return (Effect *)new Rainbow(defaultCount, defaultDelay);
+		return (Effect *)new Rainbow(defaultCount, defaultDelay, 255);
 	}
 	else 
 	{
 		ParameterParser parser(parameters);
 		return (Effect *)new Rainbow(
-			parser.GetNextInt(),  // led count
-			parser.GetNextInt()); // frame delay
+			parser.GetNextInt(), // led count
+			parser.GetNextInt(), // frame delay
+			parser.GetNextInt()  // brighntness
+		); // brightness
 	}
 }
 
@@ -103,14 +137,15 @@ Effect *EffectFactory::CreatePolice(string parameters, int defaultCount, int def
 {
 	if (parameters == "")
 	{
-		return (Effect *)new Police(defaultCount, defaultDelay);
+		return (Effect *)new Police(defaultCount, defaultDelay, 255);
 	}
 	else 
 	{
 		ParameterParser parser(parameters);
 		return (Effect *) new Police(
-			parser.GetNextInt(), 
-			parser.GetNextInt()
+			parser.GetNextInt(),  // led count
+			parser.GetNextInt(),	  // frame delay
+			parser.GetNextInt()	  // brightness
 		);
 	}
 }

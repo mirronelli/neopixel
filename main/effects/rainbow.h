@@ -6,25 +6,15 @@
 class Rainbow : Effect
 {
 public:
-	Rainbow(int pixelCount, int refreshSpeed);
+	Rainbow(int pixelCount, int refreshSpeed, uint8_t brightness);
 	void Run(Pixels *pixels);
 
 private:
-	enum class Phase
-	{
-		rising,
-		top,
-		descending,
-		bottom
-	};
-
 	void FirstRun(Pixels *pixels);
 
 	int phaseLength;
-	Phase redPhase = Phase::top;
-	Phase greenPhase = Phase::rising;
-	Phase bluePhase = Phase::bottom;
 	double phaseStepCoefficient;
+	uint8_t brightness;
 	int firstPixel = 0;
 	bool firstRun = true;
 };
