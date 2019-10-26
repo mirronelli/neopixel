@@ -32,8 +32,8 @@ sample:
 	a red and blue cycle to light up your neigborhood and scare the criminals
 	- `effect:rainbow` | `effect:rainbow:[led count];[iteration delay ms];[brightness]`  
 	a color spectrum rainbow effect moving over the strip
-	- `effect:snake` | `effect:snake:[led count];[iteration delay ms];[snake length];[dimmed tail length];[brightness]`  
-	a fixed color snake goes there and back again over the led strip
+	- `effect:snake` | `effect:snake:[led count];[iteration delay ms];[snake length];[dimmed tail length];[red];[green];[blue];[white]`  
+	a fixed color snake goes there and back again over the led strip, the color can be set for each channel
 
 ## Custom effects
 New effects can be written by sublcasing the effect class and overriding the virtual Run method. Note that the run method is supposed to do a single frame of the effect and return.  
