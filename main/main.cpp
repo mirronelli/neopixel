@@ -30,7 +30,7 @@ void app_main()
 void Main::Run()
 {
 	UartCommandReader commandReader = UartCommandReader((gpio_num_t)CONFIG_COMMAND_RX_GPIO, (gpio_num_t)CONFIG_COMMAND_TX_GPIO);
-	commandReader.ReadCommand();
+	commandReader.ReadCommandAsync();
 
 	pixels = new Pixels((gpio_num_t)CONFIG_LED_PIN, CONFIG_LED_COUNT, Pixels::StripType::ws6812, RMT_CHANNEL_0, 2.8);
 	currentEffect = EffectFactory::CreateEffect(CONFIG_DEFAULT_EFFECT_COMMAND, CONFIG_LED_COUNT, CONFIG_FRAME_DELAY);
@@ -42,7 +42,7 @@ void Main::Run()
 		{
 			string command((char*)commandReader.buffer);
 			ProcessCommand(command);
-			commandReader.ReadCommand();
+			commandReader.ReadCommandAsync();
 		}
 	}
 }

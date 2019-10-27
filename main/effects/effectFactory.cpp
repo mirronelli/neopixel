@@ -123,7 +123,7 @@ Effect *EffectFactory::CreateRainbow(string parameters, int defaultCount, int de
 {
 	if (parameters == "")
 	{
-		return (Effect *)new Rainbow(defaultCount, defaultDelay, 255);
+		return (Effect *)new Rainbow(defaultCount, defaultDelay, 128);
 	}
 	else 
 	{

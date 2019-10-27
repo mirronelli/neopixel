@@ -64,7 +64,6 @@ void Pixels::SetupGammaTable()
 	for (int i = 0; i <= 255; i++)
 	{
 		gammaTable[i] = round(pow((float)i / 255, gamma) * 255 + 0.49999);
-		printf("%d:\t%d\n", i, gammaTable[i]);
 	}
 }
 

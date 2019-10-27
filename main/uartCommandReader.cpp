@@ -29,7 +29,7 @@ UartCommandReader::~UartCommandReader()
 	uart_driver_delete(UART_NUM_1);
 }
 
-void UartCommandReader::ReadCommand()
+void UartCommandReader::ReadCommandAsync()
 {
 	xTaskCreate(UartCommandReader::PollForData, "Poll Uart", 1024, this, 10, NULL);
 }

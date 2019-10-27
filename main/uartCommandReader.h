@@ -9,7 +9,7 @@ class UartCommandReader
 public:
 	UartCommandReader(gpio_num_t rx, gpio_num_t tx);
 	~UartCommandReader();
-	void ReadCommand();
+	void ReadCommandAsync();
 	bool signaled;
 	uint8_t buffer[128];
 	size_t commandLength;
